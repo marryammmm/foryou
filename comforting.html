@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comforting Words</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        /* Style for the modal (pop-up) */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="button" id="comfortButton">I want comforting words</button>
+    </div>
+
+    <!-- The Modal (Pop-up) -->
+    <div class="popup" id="comfortPopup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <p id="affirmationText"></p>
+        </div>
+    </div>
+
+    <script>
+        // Array of comforting affirmations
+        const affirmations = [
+            "It's okay, you're going to be fine, okay?",
+            "You are strong, and you will get through this.",
+            "It's alright to feel sad, just breathe and take it one step at a time.",
+            "You are not alone, take things slow and be kind to yourself.",
+            "This feeling is temporary, you are stronger than you think.",
+            "You have the strength to overcome this, just believe in yourself."
+        ];
+
+        // Function to generate random affirmation
+        function getRandomAffirmation() {
+            const randomIndex = Math.floor(Math.random() * affirmations.length);
+            return affirmations[randomIndex];
+        }
+
+        // Show the popup with a random affirmation when the button is clicked
+        document.getElementById('comfortButton').onclick = function() {
+            const affirmation = getRandomAffirmation();
+            document.getElementById('affirmationText').textContent = affirmation;
+            document.getElementById('comfortPopup').style.display = "flex";
+        };
+
+        // Close the popup when the close button is clicked
+        document.getElementById('closePopup').onclick = function() {
+            document.getElementById('comfortPopup').style.display = "none";
+        };
+
+        // Close the popup if the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('comfortPopup')) {
+                document.getElementById('comfortPopup').style.display = "none";
+            }
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Breathing Exercise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f5f8ff;
+      padding: 50px;
+    }
+
+   .breathing-container {
+  margin-top: 90px;  /* Add space between chat bubble and breathing exercise container */
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: #a3d8f4;
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: none;
+}
+
+.instructions {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007ea7;
+  margin-bottom: 90px; /* Add space between the instructions and the circle */
+}
+
+
+    @keyframes breatheInOut {
+      0%   { transform: scale(1); }
+      33%  { transform: scale(1.5); }  /* Breathe in */
+      50%  { transform: scale(1.5); }  /* Hold */
+      83%  { transform: scale(1); }    /* Breathe out */
+      100% { transform: scale(1); }
+    }
+
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>🧘‍♀️ Breathing Exercise</h1>
+  <button class="button" onclick="startBreathing()">Start Breathing</button>
+
+  <div class="breathing-container" id="breathingContainer">
+    <div class="instructions" id="instructionText">Get ready...</div>
+    <div class="circle" id="circle"></div>
+  </div>
+
+  <script>
+    const instructionText = document.getElementById("instructionText");
+    const circle = document.getElementById("circle");
+    const breathingContainer = document.getElementById("breathingContainer");
+
+    const steps = [
+      { text: "Tarik napas 4 detik", duration: 4000 },
+      { text: "Tahan napas 4 detik", duration: 4000 },
+      { text: "Hembuskan 6 detik", duration: 6000 }
+    ];
+
+    let currentStep = 0;
+    let cycle = 0;
+    const totalCycles = 3;
+
+    function startBreathing() {
+      breathingContainer.style.display = "flex";
+      currentStep = 0;
+      cycle = 0;
+      nextStep();
+    }
+
+    function nextStep() {
+      const step = steps[currentStep];
+      instructionText.textContent = step.text;
+
+      if (step.text.includes("Tarik")) {
+        circle.style.animation = `breatheInOut ${step.duration + steps[1].duration + steps[2].duration}ms ease-in-out`;
+      }
+
+      setTimeout(() => {
+        currentStep = (currentStep + 1) % steps.length;
+        if (currentStep === 0) {
+          cycle++;
+          if (cycle >= totalCycles) {
+            instructionText.textContent = "Selesai! Kamu sudah lebih tenang 😊";
+            circle.style.animation = "none";
+            return;
+          }
+        }
+        nextStep();
+      }, step.duration);
+    }
+  </script>
+
+</body>
+</html>

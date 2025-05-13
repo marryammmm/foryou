@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Everything Will Be Alright</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff2d9;
+    }
+
+    /* Splash screen */
+    #splash {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #fff2d9;
+      transition: opacity 2s ease;
+    }
+
+    #splash img {
+      width: 300px;
+      max-width: 80vw;
+    }
+
+    #splash.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Dashboard */
+    #dashboard {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .chat-bubble {
+      background-color: white;
+      padding: 20px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      max-width: 300px;
+      color: #007ea7;
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 90px;
+    }
+
+    .chat-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-top-color: white;
+      border-bottom: 0;
+      margin-left: -15px;
+    }
+
+    .grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 60px; /* ini yang menurunkan posisi ke bawah */
+}
+
+
+    .grid-item {
+      background-color: #00a8cc;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 15px;
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.03);
+    }
+
+   .grid-item img {
+  width: 40px;
+  height: auto; /* biar nggak lonjong */
+  aspect-ratio: 1 / 1; /* jika ingin pastikan bentuk tetap bujur sangkar */
+  object-fit: contain; /* atau coba 'cover' jika perlu */
+  margin-bottom: 10px;
+}
+
+    @media (max-width: 480px) {
+      .grid-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .grid-item {
+        padding: 20px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Splash Screen -->
+  <div id="splash">
+    <img src="images/logo.png" alt="Everything Will Be Alright Logo" />
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard">
+    <div class="chat-bubble">How are you feeling today?</div>
+    <div class="grid-container">
+     <div class="grid-item" onclick="location.href='sad.html'">
+        <img src="images\icon-sad.png" alt="Sad Icon" />
+        Sad
+      </div>
+      <div class="grid-item" onclick="location.href='angry.html'">
+        <img src="images\icon-angry.png" alt="Angry Icon" />
+        Angry
+      </div>
+      <div class="grid-item" onclick="location.href='anxious.html'">
+        <img src="images\icon-anxious.png" alt="Anxious Icon" />
+        Anxious
+      </div>
+       <div class="grid-item" onclick="location.href='xixixi.html'">
+        <img src="images\icon-lonely.png" alt="Lonely Icon" />
+        Bored
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Splash screen timeout
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("splash").classList.add("fade-out");
+        setTimeout(() => {
+          document.getElementById("splash").style.display = "none";
+          document.getElementById("dashboard").style.display = "flex";
+        }, 2000);
+      }, 1000); // ~3s total
+    });
+
+    function navigate(page) {
+  if (page === 'sad') {
+    window.location.href = 'sad.html';
+  }
+  // tambahkan else if untuk halaman lainnya nanti
+}
+  </script>
+</body>
+</html>

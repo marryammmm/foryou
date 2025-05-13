@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breathing Exercise</title>
+  <style>
+    body {
+      font-family: 'Raleway', sans-serif;
+      background-color: #fff2d9;
+      color: #333;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+    }
+
+    p {
+      font-size: 1.5em;
+    }
+
+    .chat-bubble {
+      background-color: white;
+      padding: 20px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      color: #007ea7;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-align: center;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .chat-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-top-color: white;
+      border-bottom: 0;
+      margin-left: -15px;
+    }
+
+    .container {
+      position: relative;
+      display: block;
+      margin: 50px auto;
+      height: 300px;
+      width: 200px;
+      border: 2px solid #fff;
+      background-color: #ddd;
+    }
+
+    .breath {
+      position: absolute;
+      bottom: -1px;
+      left: -1px;
+      margin: auto;
+      width: 200px;
+      height: 1px;
+      background-color: #008eaa;
+    }
+
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+    /* Popup overlay style */
+    .popup-overlay {
+      position: fixed;
+      top: 50%;              /* Half of the screen height */
+      left: 50%;             /* Half of the screen width */
+      transform: translate(-50%, -50%); /* This will center it perfectly */
+      width: 70%;            /* Set the width to 70% of the screen */
+      max-width: 400px;      /* Maximum width */
+      height: auto;          /* Adjust height automatically */
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Popup content style */
+    .popup-content {
+      background-color: white;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 14px;       /* Smaller font size */
+      font-weight: normal;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Button inside the popup */
+    .popup-content button {
+      background-color: #00a8cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    /* Button hover effect */
+    .popup-content button:hover {
+      background-color: #008eaa;
+    }
+
+    /* Back button at the bottom */
+    .back-btn {
+      margin-top: 40px;
+      background: transparent;
+      border: 2px solid #00a8cc;
+      color: #00a8cc;
+      border-radius: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-bubble">
+    Control your breathing by inhaling as the color rises and exhaling as it falls
+  </div>
+
+  <div class="container">
+    <div class="breath"></div>
+  </div>
+
+  <!-- Pop-up overlay style -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+      <p>You did a great job! I'm so proud of you! You can press 'Start Breathing' again if you still don't feel better.</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+ 
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    var inhale = function() {
+      $('.breath').animate({
+        height: 300,
+        backgroundColor: '#00E5E2'
+      }, 6000); // inhale for 6 seconds
+    };
+
+    var exhale = function() {
+      $('.breath').animate({
+        height: 1,
+        backgroundColor: "#00B213"
+      }, 6000); // exhale for 6 seconds
+    };
+
+    var cycles = 0;
+    var maxCycles = 4; // Set to 4 cycles for inhale and exhale process
+
+    function startBreathing() {
+      if (cycles < maxCycles) {
+        inhale();
+        setTimeout(function() {
+          exhale();
+          cycles++; // Increment after exhale
+          // After each cycle, check if we have finished all cycles
+          if (cycles >= maxCycles) {
+            setTimeout(function() {
+              $('#popupOverlay').fadeIn();  // Pop-up will only appear after 4 cycles
+            }, 24000); // Wait 1 second after final cycle before showing pop-up
+          } else {
+            startBreathing(); // Continue to the next cycle
+          }
+        }, 6000); // Time for each inhale + exhale (12 seconds in total)
+      }
+    }
+
+    // Automatically start the breathing exercise when the page loads
+    $(document).ready(function() {
+      startBreathing();  // Automatically start breathing
+    })
+
+    function closePopup() {
+      $('#popupOverlay').fadeOut();  // Close the popup
+      cycles = 0;  // Reset cycles
+      window.location.href = "angry.html";  // Redirect to the angry page
+    }
+  </script>
+
+</body>
+</html>

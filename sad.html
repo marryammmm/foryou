@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sad - Everything Will Be Alright</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff2d9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .chat-bubble {
+      background-color: white;
+      padding: 20px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      max-width: 320px;
+      color: #007ea7;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .chat-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-top-color: white;
+      border-bottom: 0;
+      margin-left: -15px;
+    }
+
+    .subtitle {
+      margin-top: 50px;
+      margin-bottom: 20px;
+      color: #007ea7;
+      font-weight: bold;
+    }
+
+    .button {
+      background-color: #00a8cc;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 25px;
+      margin: 10px 0;
+      width: 80%;
+      max-width: 300px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #008eaa;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 250%;
+      max-width: 280px;
+      text-align: center;
+    }
+
+    .close-btn {
+      background-color: #008eaa;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 9px;
+      margin-right: -190px;
+    }
+
+    .back-btn {
+      margin-top: 30px;
+      background: transparent;
+      border: 2px solid #00a8cc;
+      color: #00a8cc;
+      border-radius: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-bubble">
+    It's okay to feel sad<br />
+    I'm here to help you feel better
+  </div>
+
+  <div class="subtitle">hi, choose the one you need :</div>
+
+  <button class="button" onclick="showPopup()">I want comforting words</button>
+  <button class="button" onclick="location.href='relaxing.html'">I want to listen to music that makes me feel calm</button>
+
+  <button class="back-btn" onclick="location.href='dashboard.html'">← Back to Dashboard</button>
+
+  <!-- Popup for comforting words -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <p id="quote"></p>
+      <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "You're allowed to feel sad without having to explain why",
+      "It's okay to not be okay right now",
+      "Your pain is real, and it matters ",
+      "Even on your worst days, you are still enough ",
+      "You don’t have to carry this all alone okay?",
+      "I'm so proud of you for just holding on ",
+      "You are still loveable, even when you feel broken",
+      "The way you feel right now is not forever. everything is gonna be okay",
+      "You are not a burden, your feelings are valid ",
+      "You always deserve gentle days and patient hearts ",
+      "Some days surviving is the most courageous thing you can do",
+      "You don’t need to fake a smile for anyone, its okay to not be okay yeah?",
+      "You are allowed to take up space, even in your sadness",
+      "You are more than what hurts you",
+      "I see your heart, and it’s beautiful even when it’s aching",
+      "You can fall apart and still be worthy of love",
+      "Rest is not weakness. It's a sacred pause.",
+      "You are already doing enough by just breathing through this.",
+      "You don't have to earn love, cause you are already worthy of it.",
+      "I believe in your quiet strength.",
+      "Your softness is not a flaw, it’s a gift.",
+      "It’s okay to not know how to move forward yet, okay?",
+      "Your tears do not make you weak. They make you real.",
+      "Even when you can’t see the light, it’s still there.",
+      "You are someone’s peace, even if you don’t feel peaceful now.",
+      "I know it’s heavy. You don’t have to hold it alone. you always have me ",
+      "You are loved, deeply, quietly, and endlessly.",
+      "Every heartbeat is proof that you are still choosing to try.",
+      "You are not your sadness, it’s just passing through you.",
+      "You don’t have to have all the answers now. Just breathe. everything is gonna be okay yeah?",
+      "You’ve survived every hard day before this, and im so proud of you because that",
+      "You deserve to feel safe in your own heart again.",
+      "There’s nothing wrong with needing help. You are human",
+      "I see the weight you carry, and I admire your strength.",
+      "Even when you feel lost, you are still on your way.",
+      "It’s okay to sit in the quiet and just feel",
+      "You’re allowed to rest without guilt. everything is gonna be okay",
+      "One day, this pain will become something softer.",
+      "Your emotions are not too loud. They’re honest.",
+      "You don’t have to pretend to be strong all the time okay? ",
+      "Your presence in this world matters more than you know.",
+      "Even the sky has cloudy days. You’re allowed to, too.",
+      "I’m proud of you for waking up, for showing up, for feeling.",
+      "There’s no shame in being tender hearted.",
+      "You deserve love that wraps around you like a blanket.",
+      "It’s okay to cry. It’s how your soul breathes.",
+      "Your heart was not made to carry it all alone.",
+      "You are seen, even in your silence.",
+      "You're not failing , you’re feeling.",
+      "Your pain is real. And so is your capacity to heal.",
+      "You don’t have to chase joy, trust me it will come again. because you always deserved it",
+      "You are worth the love you keep giving others.",
+      "Right now, it’s okay to just be.",
+      "You are not your mistakes or your sadness.",
+      "Your light is not gone, it’s just resting.",
+      "You are still lovable when you feel least like yourself.",
+      "You’ve made it through things you thought you never would.",
+      "Some days will feel heavy,that doesn’t make you weak okay? ",
+      "You are enough, even in pieces.",
+      "You are healing, even if you can’t feel it yet.",
+      "You are not too sensitive , you’re beautifully aware.",
+      "Your soul is still growing through this.",
+      "You are not invisible,I see you. i'll always see you even when you dont like to see yourself",
+      "You don’t need to be perfect to be loved.",
+      "You are allowed to feel deeply and still be okay.",
+      "You matter. You really, really matter.",
+      "You are not too far gone. You are here.",
+      "You don’t need to prove your pain to be believed. cause i know its really hurts, but trust me everything is gonna be okay",
+      "Even sadness teaches us something.",
+      "You are cherished, even in the shadows.",
+      "You are never too much for the right hearts.",
+      "You're loved more than you realize.",
+      "You are doing a brave thing just by being here. im soo proud of you",
+      "You don’t have to hold everything together all the time.",
+      "You are worthy of peaceful mornings and kind nights.",
+      "You are not your sadness , you are the one surviving it.",
+      "There is hope, even if you can’t see it yet.",
+      "Your feelings are not too complicated, you are human.",
+      "You are healing in ways you can’t even see yet.",
+      "You are still a light, even when dim.",
+      "You are worthy of kindness, even from yourself.",
+      "Even on days when you feel small, your heart is still vast.",
+      "You are so deeply worthy, even in sadness.",
+      "You are doing better than you think.",
+      "Every day you try is a victory.",
+      "You deserve peace without conditions.",
+      "You're not a problem to solve , you're a person to love.",
+      "You’re not weak for needing reassurance. its okay, i'll be always here for you okay?",
+      "You are the reason someone else believes in tenderness.",
+      "You are still lovable in your lowest moments.",
+    ];
+
+    function showPopup() {
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quote").textContent = randomQuote;
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+  </script>
+</body>
+</html>

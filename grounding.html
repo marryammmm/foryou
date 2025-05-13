@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grounding 5-4-3-2-1</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff2d9;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+    }
+
+    /* Chat Bubble Styles */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .chat-bubble {
+      background-color: white;
+      padding: 15px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      color: #007ea7;
+      font-size: 14px;
+      font-weight: bold;
+      width: 80%;
+      max-width: 320px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    /* Bubble Chat Muncung - Right */
+    .chat-bubble-right::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      right: 189px;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-top-color: white;
+      border-bottom: 0;
+      margin-left: -15px;
+    }
+
+    /* Bubble Chat Muncung - Left */
+    .chat-bubble-left::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-top-color: white;
+      border-bottom: 0;
+      margin-left: -15px;
+    }
+
+    /* Step Container */
+    .step {
+  display: none;
+  margin: 20px auto;
+  max-width: 600px;
+  font-size: 20px;
+  background-color: #00a8cc;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  text-align: left;
+  font-weight: normal;
+  font-size: 14px;
+  color: white;
+  margin-top: 80px; /* Menambahkan jarak antara bubble chat dan kotak input */
+}
+
+
+    /* Input Fields Styling */
+    .step input {
+      margin-top: 15px;
+      padding: 10px;
+      width: 90%;
+      border: 1px solid #ffffff;
+      border-radius: 6px;
+    }
+
+    /* Button Styling */
+    .button {
+      background-color: #00a8cc;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    .button:hover {
+      background-color: #006e8a;
+    }
+
+    /* Popup overlay style */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      width: 70%;
+      max-width: 400px;
+      font-size: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .popup-content button {
+      background-color: #00a8cc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .popup-content button:hover {
+      background-color: #008eaa;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Chat Bubbles -->
+  <div class="chat-container">
+    <div class="chat-bubble chat-bubble-right">
+      Now we’re gonna do a Grounding 5-4-3-2-1. Let's calm your mind by focusing on your surroundings. One step at a time.
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="step" id="step1">
+    <p><strong>5 things you can see:</strong><br>
+      "What are five things you can see around you right now?"
+    </p>
+    <input type="text" placeholder="Type your answer here...">
+  </div>
+
+  <div class="step" id="step2">
+    <p><strong>4 things you can touch:</strong><br>
+      "What are four things you can feel or touch around you?"
+    </p>
+    <input type="text" placeholder="Example: pillow, table, clothing...">
+  </div>
+
+  <div class="step" id="step3">
+    <p><strong>3 things you can hear:</strong><br>
+      "What are three sounds you can hear right now?"
+    </p>
+    <input type="text" placeholder="Example: fan sound, birds, music...">
+  </div>
+
+  <div class="step" id="step4">
+    <p><strong>2 things you can smell:</strong><br>
+      "What are two scents you can notice or smell?"
+    </p>
+    <input type="text" placeholder="Example: coffee, perfume, fresh air...">
+  </div>
+
+  <div class="step" id="step5">
+    <p><strong>1 thing you can taste:</strong><br>
+      "What is one taste you can imagine right now?"
+    </p>
+    <input type="text" placeholder="Example: chocolate, warm tea...">
+  </div>
+
+  <button class="button" onclick="showNextStep()">Confirm</button>
+
+  <!-- Popup -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup-content">
+      <p>You did a great job! I'm so proud that you got through this.</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    const steps = [
+      document.getElementById('step1'),
+      document.getElementById('step2'),
+      document.getElementById('step3'),
+      document.getElementById('step4'),
+      document.getElementById('step5')
+    ];
+
+    function showNextStep() {
+      if (currentStep < steps.length) {
+        steps[currentStep].style.display = 'block';
+        currentStep++;
+      } else {
+        // Show the pop-up after all steps
+        setTimeout(function() {
+          document.getElementById('popupOverlay').style.display = 'flex';
+        }, 1000);
+      }
+    }
+
+    function closePopup() {
+      document.getElementById('popupOverlay').style.display = 'none';
+      window.location.href = 'anxious.html';  // Redirect to the "anxious" page
+    }
+
+    // Automatically start showing the first step when the page is loaded
+    window.onload = function() {
+      showNextStep();  // Automatically start the first step
+    }
+  </script>
+
+</body>
+</html>

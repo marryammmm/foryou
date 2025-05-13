@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Hug</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #fff8f0;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #444;
+    }
+
+    .hug-image {
+      width: 200px;
+      margin: 20px auto;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      display: block;
+    }
+
+    .hug-image:hover {
+      transform: scale(1.05);
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #333;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .visible {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧸 Virtual Hug for You</h1>
+  <p>Tap the hug to feel warmth 💗</p>
+
+  <!-- Gambar pelukan chibi -->
+  <img
+    src="https://i.ibb.co/pf2fWmt/chibi-hug.png"
+    alt="Virtual Hug"
+    class="hug-image"
+    id="hugImage"
+/>
+
+  <!-- Pesan hangat -->
+  <div id="hugMessage" class="message">
+    "This hug is from me to you. You’re safe now."
+  </div>
+
+  <!-- Suara detak jantung -->
+  <audio id="hugAudio" preload="auto">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const hugImage = document.getElementById("hugImage");
+    const hugMessage = document.getElementById("hugMessage");
+    const hugAudio = document.getElementById("hugAudio");
+
+    hugImage.addEventListener("click", () => {
+      hugMessage.classList.add("visible");
+
+      // Handle autoplay block by user interaction
+      hugAudio.currentTime = 0;
+      hugAudio.volume = 0.3;
+      hugAudio.play().catch((error) => {
+        console.warn("Audio play blocked by browser:", error);
+      });
+    });
+  </script>
+
+</body>
+</html>
